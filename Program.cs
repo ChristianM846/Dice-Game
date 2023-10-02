@@ -7,7 +7,8 @@
             string choice;
             bool done = false;
             double money, bet;
-            int choiceNum = 0;
+            int choiceNum, roll1, roll2;
+            choiceNum = 0;
             money = 100;
             Die die1 = new Die();
             Die die2 = new Die();
@@ -74,7 +75,7 @@
                 }
 
                 Math.Round(bet, 2);
-
+                
                 if (bet > money)
                 {
                     Console.WriteLine($"I'm assuming you meant to bet all your money, so I'm just going to lock in your bet as {money.ToString("C")}");
@@ -91,7 +92,7 @@
 
                 if (choiceNum == 1)
                 {
-                    if (die1 == die2)
+                    if (die1.Roll == die2.Roll)
                     {
                         Console.WriteLine("Yes");
                     }
