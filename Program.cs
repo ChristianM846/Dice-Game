@@ -7,7 +7,7 @@
             string choice;
             bool done = false;
             double money, bet;
-            int choiceNum;
+            int choiceNum = 0;
             money = 100;
             Die die1 = new Die();
             Die die2 = new Die();
@@ -17,13 +17,13 @@
             Thread.Sleep(750);
             Console.WriteLine("There are four possible outcomes you can guess from:");
             Thread.Sleep(750);
-            Console.WriteLine("Doubles - The dice both roll the same number (On win, you get double your bet)"); // choiceNum = 1
+            Console.WriteLine("Doubles - The dice both roll the same number (On a win, you get double your bet)"); // choiceNum = 1
             Thread.Sleep(750);
-            Console.WriteLine("Not Doubles - The dice roll different numbers (On win, you get half your bet)"); // choiceNum = 2
+            Console.WriteLine("Not Doubles - The dice roll different numbers (On a win, you get half your bet)"); // choiceNum = 2
             Thread.Sleep(750);
-            Console.WriteLine("Even Sum - The numbers on the dice add to an even number (On win, you get your bet)"); // choiceNum 3
+            Console.WriteLine("Even Sum - The numbers on the dice add to an even number (On a win, you get your bet)"); // choiceNum 3
             Thread.Sleep(750);
-            Console.WriteLine("Odd Sum - The numbers on the dice add to an odd number (On win, you get your bet)"); // choiceNum = 4
+            Console.WriteLine("Odd Sum - The numbers on the dice add to an odd number (On a win, you get your bet)"); // choiceNum = 4
             Console.WriteLine("");
             Thread.Sleep(750);
 
@@ -68,7 +68,7 @@
 
                 Console.WriteLine("How much would you like to bet?");
 
-                while (!Double.TryParse(Console.ReadLine(), out bet) || bet < 0)
+                while (!Double.TryParse(Console.ReadLine(), out bet) || bet <= 0)
                 {
                     Console.WriteLine("Sorry, that's not a valid bet, please try again");
                 }
@@ -77,9 +77,26 @@
 
                 if (bet > money)
                 {
-                    Console.WriteLine($"I'm assuming you meant to bet all your money, so I'm just going to lock in your bet of {money.ToString("C")}");
+                    Console.WriteLine($"I'm assuming you meant to bet all your money, so I'm just going to lock in your bet as {money.ToString("C")}");
                     bet = money;
                 }
+
+                Console.WriteLine();
+                Console.WriteLine("Now let's roll these dice! Press Enter to roll the dice. Good Luck!");
+                Console.ReadLine();
+                die1.RollDie();
+                die1.DrawDie();
+                die2.RollDie();
+                die2.DrawDie();
+
+                if (choiceNum == 1)
+                {
+                    if (die1 == die2)
+                    {
+                        Console.WriteLine("Yes");
+                    }
+                }
+
 
             }
         }
