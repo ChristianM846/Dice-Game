@@ -1,13 +1,15 @@
-﻿namespace Dice_Game
+﻿using Microsoft.VisualBasic;
+
+namespace Dice_Game
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string choice;
+            string choice, answer;
             bool done = false;
             double money, bet;
-            int choiceNum, roll1, roll2;
+            int choiceNum, rollTotal;
             choiceNum = 0;
             money = 100;
             Die die1 = new Die();
@@ -33,7 +35,6 @@
                 Console.WriteLine($"You currently have {money.ToString("C")}.");
                 Console.WriteLine("Which outcome would you like to bet on? (Please type your choice)");
                 choice = Console.ReadLine().ToUpper();
-                Console.WriteLine(choice);
                 while (choice != "DOUBLES" && choice != "NOT DOUBLES" && choice != "EVEN SUM" && choice != "ODD SUM")
                 {
                     Console.WriteLine("Sorry, that's not a valid choice, please try again");
@@ -94,11 +95,88 @@
                 {
                     if (die1.Roll == die2.Roll)
                     {
-                        Console.WriteLine("Yes");
+                        Console.WriteLine($"What do you know, doubles! Congrats, you got it right. Here's your payout of {(bet*2).ToString("C")}");
+                        money += (bet * 2);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sorry, your guess was incorrect. I'll be keping your bet of {bet.ToString("C")}");
+                        money -= bet;
                     }
                 }
+                else if (choiceNum == 2)
+                {
+                    if (die1.Roll != die2.Roll)
+                    {
+                        Console.WriteLine($"Well done, you took the safest option and got in right. Here's your payout of {(bet/2).ToString("C")}");
+                        money += Math.Round(bet/2, 2);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Wow, you actually got it wrong. Tough luck bud, but I'll be keeping your bet of {bet.ToString("C")}");
+                        money -= bet;
+                    }
+                }
+                else if (choiceNum == 3)
+                {
+                    rollTotal = die1.Roll + die2.Roll;
+                    if (rollTotal == 2 || rollTotal == 4 || rollTotal == 6 || rollTotal == 8 || rollTotal == 10 || rollTotal == 12)
+                    {
+                        Console.WriteLine($"Congrats, you were correct. Here is your payout of {bet.ToString("C")}");
+                        money += bet;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sorry, you were not correct. I'll be keeping your bet of {bet.ToString("C")}");
+                        money -= bet;
+                    }
+                }
+                else if (choiceNum == 4)
+                {
+                    rollTotal = die1.Roll + die2.Roll;
+                    if (rollTotal == 3 || rollTotal == 5 || rollTotal == 7 || rollTotal == 9 || rollTotal == 11)
+                    {
+                        Console.WriteLine($"Congrats, you were correct. Here is your payout of {bet.ToString("C")}");
+                        money += bet;
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Sorry, you were not correct. I'll be keeping your bet of {bet.ToString("C")}");
+                        money -= bet;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Error! Closing program!");
+                    Environment.Exit(0);
+                }
 
+                Console.WriteLine($"Your balance is now {money.ToString("C")}");
 
+                if (money == 0)
+                {
+                    Console.WriteLine("I'm sorry, it seems you have no money left to play with, I must ask you to leave. Goodbye!");
+                    Environment.Exit(0);
+                }
+
+                Console.WriteLine("Would you like to play another round? (Yes/No)");
+                answer = Console.ReadLine().ToUpper();
+
+                while (answer != "YES" && answer != "NO")
+                {
+                    Console.WriteLine("That is not a valid response. Please try again");
+                    answer = Console.ReadLine().ToUpper();
+                }
+
+                if (answer == "YES")
+                {
+                    done = false;
+                }
+                else if (answer == "NO")
+                {
+                    Console.WriteLine("Okay, goodbye");
+                    done = true;
+                }
             }
         }
     }
