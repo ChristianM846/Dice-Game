@@ -34,11 +34,11 @@ namespace Dice_Game
             {
                 Console.WriteLine($"You currently have {money.ToString("C")}.");
                 Console.WriteLine("Which outcome would you like to bet on? (Please type your choice)");
-                choice = Console.ReadLine().ToUpper();
+                choice = Console.ReadLine().ToUpper().Trim();
                 while (choice != "DOUBLES" && choice != "NOT DOUBLES" && choice != "EVEN SUM" && choice != "ODD SUM")
                 {
                     Console.WriteLine("Sorry, that's not a valid choice, please try again");
-                    choice = Console.ReadLine().ToUpper();
+                    choice = Console.ReadLine().ToUpper().Trim();
                 }
 
                 if (choice == "DOUBLES")
@@ -70,7 +70,7 @@ namespace Dice_Game
 
                 Console.WriteLine("How much would you like to bet?");
 
-                while (!Double.TryParse(Console.ReadLine(), out bet) || bet <= 0)
+                while (!Double.TryParse(Console.ReadLine().Trim(), out bet) || bet <= 0)
                 {
                     Console.WriteLine("Sorry, that's not a valid bet, please try again");
                 }
@@ -160,12 +160,12 @@ namespace Dice_Game
                 }
 
                 Console.WriteLine("Would you like to play another round? (Yes/No)");
-                answer = Console.ReadLine().ToUpper();
+                answer = Console.ReadLine().ToUpper().Trim();
 
                 while (answer != "YES" && answer != "NO")
                 {
                     Console.WriteLine("That is not a valid response. Please try again");
-                    answer = Console.ReadLine().ToUpper();
+                    answer = Console.ReadLine().ToUpper().Trim();
                 }
 
                 if (answer == "YES")
@@ -174,7 +174,7 @@ namespace Dice_Game
                 }
                 else if (answer == "NO")
                 {
-                    Console.WriteLine("Okay, goodbye");
+                    Console.WriteLine($"Okay, your final balance was {money.ToString("C")}");
                     done = true;
                 }
             }
